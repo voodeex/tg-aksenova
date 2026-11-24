@@ -55,7 +55,7 @@ export function AboutSection() {
       id="about"
       ref={sectionRef}
       aria-labelledby="about-heading"
-      className="relative z-10 w-full px-5 py-28 md:px-12 md:py-40"
+      className="relative z-10 w-full px-5 py-20 md:px-12 md:py-36"
     >
       <div className="mx-auto max-w-[1440px]">
         {/* Верхний индекс секции */}
@@ -217,11 +217,11 @@ export function AboutSection() {
         <div
           ref={kineticRef}
           aria-label="Ключевые измерения: Education, Technology, Innovation"
-          className="liquid-glass-surface mt-24 overflow-hidden rounded-[2rem] px-6 py-10 md:mt-32 md:px-10 md:py-14"
+          className="liquid-glass-surface mt-16 overflow-hidden rounded-[1.75rem] px-5 py-8 md:mt-28 md:rounded-[2rem] md:px-10 md:py-14"
         >
           <div
             data-kinetic-row
-            className="flex flex-wrap items-baseline justify-between gap-4 font-sans text-[clamp(1.65rem,4.3vw,4.35rem)] leading-[1.05] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
+            className="flex flex-wrap items-baseline justify-between gap-2 font-sans text-[clamp(1.25rem,5.5vw,4.35rem)] leading-[1.08] font-semibold tracking-[-0.03em] uppercase text-[var(--fg)] sm:gap-4"
           >
             <span>EDUCATION</span>
             <span className="hidden font-mono text-xs tracking-[0.24em] text-[var(--fg-mute)] md:inline">
@@ -232,7 +232,7 @@ export function AboutSection() {
 
           <div
             data-kinetic-row
-            className="mt-4 flex flex-wrap items-baseline justify-between gap-4 font-sans text-[clamp(1.65rem,4.3vw,4.35rem)] leading-[1.05] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
+            className="mt-3 flex flex-wrap items-baseline justify-between gap-2 font-sans text-[clamp(1.25rem,5.5vw,4.35rem)] leading-[1.08] font-semibold tracking-[-0.03em] uppercase text-[var(--fg)] sm:mt-4 sm:gap-4"
           >
             <span className="text-[#6E6759] italic font-normal">ЦИФРОВАЯ СРЕДА</span>
             <span>TECHNOLOGY</span>
@@ -243,7 +243,7 @@ export function AboutSection() {
 
           <div
             data-kinetic-row
-            className="mt-4 flex flex-wrap items-baseline justify-between gap-4 font-sans text-[clamp(1.65rem,4.3vw,4.35rem)] leading-[1.05] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
+            className="mt-3 flex flex-wrap items-baseline justify-between gap-2 font-sans text-[clamp(1.25rem,5.5vw,4.35rem)] leading-[1.08] font-semibold tracking-[-0.03em] uppercase text-[var(--fg)] sm:mt-4 sm:gap-4"
           >
             <span>INNOVATION</span>
             <span className="hidden font-mono text-xs tracking-[0.24em] text-[var(--fg-mute)] md:inline">

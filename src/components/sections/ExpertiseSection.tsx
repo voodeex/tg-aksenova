@@ -46,14 +46,14 @@ export function ExpertiseSection() {
 
             <p className="max-w-md text-sm font-medium leading-relaxed text-[var(--fg-mute)] md:text-base">
               Интерактивная визуализация направлений документально подтверждённого образования и
-              повышения квалификации. Выберите сферу в 3D-сцене слева или в списке ниже.
+              повышения квалификации. Выберите сферу в 3D-сцене или в списке ниже.
             </p>
           </div>
         </div>
 
-        {/* Центральная область: слева свободная сцена для 3D-созвездия, справа — стеклянная инфопанель */}
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
-          <div className="pointer-events-none hidden min-h-[380px] lg:col-span-6 lg:block" />
+        {/* Центральная область: на мобильных — выделенное окно для 3D-созвездия сверху; на десктопе — слева */}
+        <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="pointer-events-none h-[210px] sm:h-[260px] lg:col-span-6 lg:h-auto lg:min-h-[380px]" />
 
           <div className="lg:col-span-6">
             <div className="liquid-glass-surface relative z-20 rounded-[2rem] p-6 md:p-8">

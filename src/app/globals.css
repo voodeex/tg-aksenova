@@ -195,30 +195,28 @@ html[data-scene="dark"] .nav-counter {
 
 /* Плотная матовая шторка и подложка мобильного меню (0% просвечивания фоновых заголовков) */
 .mobile-drawer-scrim {
-  background: rgba(233, 233, 231, 0.72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(233, 233, 231, 0.86);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 html[data-scene="dark"] .mobile-drawer-scrim {
-  background: rgba(14, 14, 15, 0.78);
+  background: rgba(12, 12, 14, 0.88);
 }
 
 .mobile-glass-drawer {
-  background: rgba(250, 249, 245, 0.96);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.92);
+  background: rgba(252, 251, 248, 0.99);
+  border: 1px solid rgba(23, 23, 23, 0.12);
   box-shadow:
-    0 28px 70px -12px rgba(23, 23, 23, 0.22),
-    inset 0 1px 1px rgba(255, 255, 255, 0.96);
+    0 28px 70px -12px rgba(23, 23, 23, 0.24),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
 }
 
 html[data-scene="dark"] .mobile-glass-drawer {
-  background: rgba(22, 22, 25, 0.96);
+  background: rgba(20, 20, 23, 0.99);
   border-color: rgba(255, 255, 255, 0.22);
   box-shadow:
-    0 28px 70px -12px rgba(0, 0, 0, 0.75),
+    0 28px 70px -12px rgba(0, 0, 0, 0.78),
     inset 0 1px 1px rgba(255, 255, 255, 0.24);
 }
 

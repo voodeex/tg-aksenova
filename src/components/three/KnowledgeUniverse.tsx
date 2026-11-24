@@ -115,10 +115,10 @@ export function KnowledgeUniverse() {
     const g = groupRef.current;
     if (!g) return;
 
-    const visible = camZ < -106 && camZ > -140;
+    const visible = camZ < -100 && camZ > -140;
     g.visible = visible;
     const shouldShowLabels =
-      camZ < -110.5 && camZ > -134 && ui.get().activeSection === "expertise";
+      camZ < -106 && camZ > -134 && ui.get().activeSection === "expertise";
     if (shouldShowLabels !== inView) setInView(shouldShowLabels);
     if (!visible) return;
 
@@ -130,6 +130,14 @@ export function KnowledgeUniverse() {
     const targetRotX = (focused ? 0 : -engine.pointer.y * 0.12) + Math.cos(t * 0.14) * 0.03;
     g.rotation.y = damp(g.rotation.y, targetRotY, 4.2, dt);
     g.rotation.x = damp(g.rotation.x, targetRotX, 4.2, dt);
+
+    // Адаптивное размещение: слева на десктопе, по центру-вверху на мобильных экранах
+    const gx = engine.portrait ? 0 : -2.1;
+    const gy = engine.portrait ? 0.55 : -0.35;
+    const gs = engine.portrait ? 0.44 : 0.58;
+    g.position.x = damp(g.position.x, gx, 6, dt);
+    g.position.y = damp(g.position.y, gy, 6, dt);
+    g.scale.setScalar(damp(g.scale.x, gs, 6, dt));
 
     for (let i = 0; i < topics.length; i++) {
       const topic = topics[i];

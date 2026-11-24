@@ -16,10 +16,10 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      aria-label=" Главный экран"
-      className="relative z-10 min-h-[155vh] w-full"
+      aria-label="Главный экран"
+      className="relative z-10 min-h-screen w-full lg:min-h-[155vh]"
     >
-      <div className="sticky top-0 flex min-h-screen w-full flex-col justify-between px-5 pt-24 pb-8 md:px-12 md:pt-28 md:pb-12">
+      <div className="flex min-h-screen w-full flex-col justify-between px-5 pt-22 pb-7 md:px-12 md:pt-28 md:pb-12 lg:sticky lg:top-0">
         {/* Верхняя техническая панель */}
         <div
           className={`mx-auto flex w-full max-w-[1440px] items-start justify-between border-b border-[var(--line)] pb-4 transition-all duration-500 ${
@@ -55,12 +55,12 @@ export function HeroSection() {
               </span>
             </div>
 
-            <h1 className="text-halo font-sans text-[clamp(2.55rem,6.4vw,6.15rem)] leading-[0.94] font-semibold tracking-[-0.04em] uppercase text-[var(--fg)]">
+            <h1 className="text-halo font-sans text-[clamp(2.05rem,9vw,6.15rem)] leading-[0.95] font-semibold tracking-[-0.04em] uppercase text-[var(--fg)]">
               <span className="block">ОБРАЗОВАНИЕ</span>
-              <span className="block pl-[4%] text-[#524A3E] italic font-medium">
+              <span className="block pl-[2%] text-[#524A3E] italic font-medium sm:pl-[4%]">
                 ЗА ПРЕДЕЛАМИ
               </span>
-              <span className="block pl-[8%]">ПРИВЫЧНОГО.</span>
+              <span className="block pl-[4%] sm:pl-[8%]">ПРИВЫЧНОГО.</span>
             </h1>
           </div>
 
@@ -105,16 +105,17 @@ export function HeroSection() {
 
         {/* Нижняя строка состояния и подсказка прокрутки */}
         <div
-          className={`mx-auto flex w-full max-w-[1440px] items-center justify-between border-t border-[var(--line)] pt-4 font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--fg-mute)] transition-opacity duration-500 delay-150 ${
+          className={`mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 border-t border-[var(--line)] pt-4 font-mono text-[10px] tracking-[0.16em] uppercase text-[var(--fg-mute)] transition-opacity duration-500 delay-150 sm:tracking-[0.22em] ${
             introDone ? "opacity-100" : "opacity-0"
           }`}
         >
-          <span>ИНТЕРАКТИВНАЯ 3D-СКУЛЬПТУРА · НАВЕДИТЕ ИЛИ ВРАЩАЙТЕ</span>
+          <span className="hidden sm:inline">ИНТЕРАКТИВНАЯ 3D-СКУЛЬПТУРА · НАВЕДИТЕ ИЛИ ВРАЩАЙТЕ</span>
+          <span className="sm:hidden">3D-СЦЕНА · ПОРТФОЛИО</span>
           <button
             type="button"
             onClick={() => scrollToTarget("about")}
             data-cursor="EXPLORE"
-            className="inline-flex items-center gap-2 text-[var(--fg)] transition-opacity hover:opacity-70"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[var(--fg)] transition-opacity hover:opacity-70"
           >
             <span>SCROLL TO EXPLORE</span>
             <span aria-hidden="true">↓</span>

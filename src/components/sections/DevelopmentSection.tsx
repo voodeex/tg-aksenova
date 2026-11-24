@@ -46,17 +46,19 @@ export function DevelopmentSection() {
     ui.set({ timelineIndex: safeIdx });
   }, [yearGroups.length, safeIdx]);
 
-  // Синхронизация активного года с положением прокрутки вдоль 3D-ленты
+  // Синхронизация активного года с положением прокрутки вдоль 3D-ленты (на десктопе)
   useEffect(() => {
     if (reduced) return;
     let raf = 0;
     const syncFromScroll = () => {
-      const s = engine.sections.development;
-      if (s && engine.scrollY >= s.top - 40 && engine.scrollY <= s.top + s.height) {
-        const p = sectionProgress("development");
-        const count = Math.max(yearGroups.length, 1);
-        const idx = clamp(Math.floor(p * count), 0, count - 1);
-        setActiveYearIdx((prev) => (prev === idx ? prev : idx));
+      if (!engine.portrait) {
+        const s = engine.sections.development;
+        if (s && engine.scrollY >= s.top - 40 && engine.scrollY <= s.top + s.height) {
+          const p = sectionProgress("development");
+          const count = Math.max(yearGroups.length, 1);
+          const idx = clamp(Math.floor(p * count), 0, count - 1);
+          setActiveYearIdx((prev) => (prev === idx ? prev : idx));
+        }
       }
       raf = requestAnimationFrame(syncFromScroll);
     };
@@ -68,7 +70,7 @@ export function DevelopmentSection() {
     const count = Math.max(yearGroups.length, 1);
     const clamped = clamp(idx, 0, count - 1);
     setActiveYearIdx(clamped);
-    if (scrollCamera && !reduced && engine.ready) {
+    if (scrollCamera && !reduced && !engine.portrait && engine.ready) {
       const at = count <= 1 ? 0.5 : (clamped + 0.35) / count;
       scrollToTarget(sectionPx("development", clamp(at, 0.02, 0.96)), { duration: 1.05 });
     }
@@ -97,13 +99,13 @@ export function DevelopmentSection() {
         id="development"
         aria-labelledby="development-heading"
         onKeyDown={handleKeyDown}
-        className={`relative z-10 w-full ${reduced ? "py-24" : "min-h-[340vh]"}`}
+        className={`relative z-10 w-full ${reduced ? "py-20" : "py-20 lg:min-h-[340vh] lg:py-0"}`}
       >
         <div
           className={`${
             reduced
               ? "mx-auto max-w-[1440px] px-5 md:px-12"
-              : "sticky top-0 flex min-h-screen w-full flex-col justify-between px-5 pt-22 pb-8 md:px-12 md:pt-26 md:pb-10"
+              : "mx-auto flex w-full max-w-[1440px] flex-col justify-between gap-6 px-5 md:px-12 lg:sticky lg:top-0 lg:min-h-screen lg:max-w-none lg:gap-0 lg:pt-26 lg:pb-10"
           }`}
         >
           {/* Заголовок и фильтры */}
@@ -226,7 +228,7 @@ export function DevelopmentSection() {
 
               {/* Правая часть — жидкостеклянная панель программ выбранного года */}
               <div className="lg:col-span-7">
-                <div className="liquid-glass-surface max-h-[58vh] overflow-y-auto rounded-[2rem] px-5 pt-5 pb-7 md:px-8 md:pt-7 md:pb-9">
+                <div className="liquid-glass-surface rounded-[1.75rem] px-5 pt-5 pb-7 sm:rounded-[2rem] md:px-8 md:pt-7 md:pb-9 lg:max-h-[58vh] lg:overflow-y-auto">
                   <div className="mb-4 flex items-center justify-between border-b border-[var(--line)] pb-3 font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--fg-mute)]">
                     <span>ПРОГРАММЫ {currentGroup.year} ГОДА</span>
                     <span>НАЖМИТЕ НА ПРОГРАММУ ДЛЯ ДЕТАЛЕЙ</span>

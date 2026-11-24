@@ -80,7 +80,7 @@ export function DegreeSection() {
           <span>ACADEMIC DEGREE // УЧЁНАЯ СТЕПЕНЬ</span>
         </div>
 
-        <h2 className="font-sans text-[clamp(2.4rem,7.8vw,8.2rem)] leading-[0.96] font-semibold tracking-[-0.04em] uppercase text-[var(--fg)]">
+        <h2 className="font-sans text-[clamp(1.65rem,7.2vw,8.2rem)] leading-[0.98] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]">
           <span data-degree-line className="block py-1">
             КАНДИДАТ
           </span>

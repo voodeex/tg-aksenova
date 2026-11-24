@@ -85,11 +85,12 @@ export function ContactSection() {
                 </div>
               </dl>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3.5">
+              <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
                 <MagneticButton
                   href={profile.emailHref}
                   variant="solid"
                   cursorLabel="OPEN"
+                  className="w-full sm:w-auto"
                 >
                   НАПИСАТЬ ПИСЬМО
                 </MagneticButton>
@@ -98,6 +99,7 @@ export function ContactSection() {
                   href={profile.phoneHref}
                   variant="glass"
                   cursorLabel="OPEN"
+                  className="w-full sm:w-auto"
                 >
                   ПОЗВОНИТЬ
                 </MagneticButton>

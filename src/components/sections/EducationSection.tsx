@@ -49,13 +49,13 @@ export function EducationSection() {
     <section
       id="education"
       aria-labelledby="education-heading"
-      className={`relative z-10 w-full ${reduced || webgl === false ? "py-24" : "min-h-[250vh]"}`}
+      className={`relative z-10 w-full ${reduced || webgl === false ? "py-20" : "py-20 lg:min-h-[240vh] lg:py-0"}`}
     >
       <div
         className={`${
           reduced || webgl === false
             ? "mx-auto max-w-[1440px] px-5 md:px-12"
-            : "sticky top-0 flex min-h-screen w-full flex-col justify-between px-5 py-24 md:px-12 md:py-28"
+            : "mx-auto flex w-full max-w-[1440px] flex-col justify-between px-5 md:px-12 lg:sticky lg:top-0 lg:min-h-screen lg:max-w-none lg:py-28"
         }`}
       >
         {/* Верхняя шапка экспозиции */}
@@ -69,7 +69,7 @@ export function EducationSection() {
             <SplitReveal
               as="h2"
               lines={["ФУНДАМЕНТ", "ПРОФЕССИОНАЛИЗМА"]}
-              className="text-halo font-sans text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.95] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
+              className="text-halo font-sans text-[clamp(1.55rem,6.4vw,4.6rem)] leading-[0.98] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
             />
 
             {/* Переключатель экспонатов в зале */}
@@ -120,7 +120,7 @@ export function EducationSection() {
               >
                 <TiltCard
                   cursorLabel="EXPLORE"
-                  className={`rounded-[2rem] p-7 md:p-10 transition-all duration-500 ${
+                  className={`rounded-[1.75rem] p-6 transition-all duration-500 sm:rounded-[2rem] md:p-10 ${
                     isFocused
                       ? "ring-1 ring-[#C5B89A]/90 shadow-[0_28px_70px_rgba(23,23,23,0.14)]"
                       : ""

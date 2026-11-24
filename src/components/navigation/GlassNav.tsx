@@ -8,7 +8,8 @@ import { useUI } from "@/lib/store";
 
 /**
  * Парящая жидкостеклянная навигационная капсула (Apple Liquid Glass).
- * Высокий контраст на светлых и тёмных сценах, плотная матовая подложка для мобильного меню.
+ * Мобильная шторка и полноэкранный размытый фон рендерятся вне трансформируемого контейнера,
+ * поэтому fixed inset-0 полностью перекрывает весь экран без просвечивания фоновых заголовков.
  */
 export function GlassNav() {
   const activeSection = useUI("activeSection");
@@ -35,7 +36,7 @@ export function GlassNav() {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
     e.preventDefault();
     setMobileOpen(false);
-    scrollToTarget(target, { duration: 1.25 });
+    scrollToTarget(target, { duration: 1.2 });
   };
 
   const handleCapsuleMove = (e: React.PointerEvent<HTMLElement>) => {
@@ -53,105 +54,23 @@ export function GlassNav() {
   };
 
   return (
-    <header
-      className={`fixed top-0 right-0 left-0 z-50 flex justify-center px-4 transition-all duration-500 ${
-        compact ? "pt-3" : "pt-5 md:pt-6"
-      } ${introDone ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0 pointer-events-none"}`}
-    >
-      {/* Затемнённо-матовый фон-подложка под открытым мобильным меню */}
+    <>
+      {/* Полноэкранная матовая шторка под открытым мобильным меню */}
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
-          className="mobile-drawer-scrim fixed inset-0 z-40 lg:hidden"
+          className="mobile-drawer-scrim fixed inset-0 z-[55] lg:hidden"
         />
       )}
 
-      <nav
-        ref={capsuleRef}
-        aria-label="Основная навигация"
-        onPointerMove={handleCapsuleMove}
-        onPointerLeave={handleCapsuleLeave}
-        className={`liquid-glass-capsule relative z-50 flex items-center justify-between transition-all duration-400 ${
-          compact
-            ? "rounded-full px-3 py-1.5 md:px-4 md:py-2"
-            : "rounded-full px-4 py-2 md:px-5 md:py-2.5"
-        } w-full max-w-[960px]`}
-      >
-        {/* Монограмма / бренд */}
-        <a
-          href="#home"
-          onClick={(e) => handleNavClick(e, "home")}
-          className="nav-brand flex items-center gap-2.5 rounded-full px-2.5 py-1 text-xs font-semibold tracking-tight transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C5B89A]"
-        >
-          <span className="inline-block h-2 w-2 rounded-full bg-[#C5B89A] shadow-[0_0_12px_rgba(197,184,154,0.9)]" />
-          <span className="font-mono text-[11px] tracking-[0.14em] uppercase">
-            {profile.shortName}
-          </span>
-        </a>
-
-        {/* Десктопные пункты меню */}
-        <ul className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => {
-            const isActive = currentNav.id === item.id;
-            const isHovered = hoveredId === item.id;
-            return (
-              <li key={item.id} className="relative">
-                <a
-                  href={`#${item.target}`}
-                  onClick={(e) => handleNavClick(e, item.target)}
-                  onPointerEnter={() => setHoveredId(item.id)}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`relative z-10 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-[0.13em] uppercase transition-colors duration-250 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C5B89A] ${
-                    isActive
-                      ? "font-semibold text-[#171717]"
-                      : "nav-link-idle"
-                  }`}
-                >
-                  {isActive && (
-                    <span
-                      className="absolute inset-0 -z-10 rounded-full bg-[#F5F2EB] shadow-[0_2px_14px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.95)]"
-                      aria-hidden="true"
-                    />
-                  )}
-                  {!isActive && isHovered && (
-                    <span
-                      className="absolute inset-0 -z-10 rounded-full bg-[#C5B89A]/25"
-                      aria-hidden="true"
-                    />
-                  )}
-                  <span>{item.label}</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Индикатор секции / кнопка мобильного меню */}
-        <div className="flex items-center gap-2">
-          <span className="nav-counter hidden rounded-full border px-2.5 py-1 font-mono text-[10px] font-medium tracking-[0.18em] sm:inline-block">
-            [ {currentNav.index} / 06 ]
-          </span>
-
-          <button
-            type="button"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-glass-menu"
-            aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
-            className="nav-mobile-btn inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-[0.14em] uppercase transition-colors hover:border-[#C5B89A] lg:hidden"
-          >
-            <span>{mobileOpen ? "Закрыть" : "Меню"}</span>
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#C5B89A]" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Мобильное раскрывающееся жидкостеклянное меню (высокая непрозрачность для 100% читаемости) */}
+      {/* Мобильное раскрывающееся меню поверх полноэкранного scrim */}
       {mobileOpen && (
         <div
           id="mobile-glass-menu"
-          className="mobile-glass-drawer fixed top-20 right-4 left-4 z-50 rounded-3xl p-5 shadow-2xl lg:hidden"
+          role="dialog"
+          aria-label="Мобильное меню навигации"
+          className="mobile-glass-drawer fixed top-20 right-4 left-4 z-[60] rounded-3xl p-5 shadow-2xl lg:hidden"
         >
           <div className="mb-3 flex items-center justify-between border-b border-[var(--line)] pb-2.5 font-mono text-[10px] font-medium tracking-[0.2em] uppercase text-[var(--fg-mute)]">
             <span>Навигация по экспозиции</span>
@@ -180,6 +99,90 @@ export function GlassNav() {
           </ul>
         </div>
       )}
-    </header>
+
+      <header
+        className={`fixed top-0 right-0 left-0 z-[65] flex justify-center px-4 transition-[padding,opacity] duration-500 ${
+          compact ? "pt-3" : "pt-4 md:pt-6"
+        } ${introDone ? "opacity-100" : "pointer-events-none opacity-0"}`}
+      >
+        <nav
+          ref={capsuleRef}
+          aria-label="Основная навигация"
+          onPointerMove={handleCapsuleMove}
+          onPointerLeave={handleCapsuleLeave}
+          className={`liquid-glass-capsule relative flex items-center justify-between transition-all duration-400 ${
+            compact
+              ? "rounded-full px-3 py-1.5 md:px-4 md:py-2"
+              : "rounded-full px-4 py-2 md:px-5 md:py-2.5"
+          } w-full max-w-[960px]`}
+        >
+          {/* Монограмма / бренд */}
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, "home")}
+            className="nav-brand flex items-center gap-2.5 rounded-full px-2 py-1 text-xs font-semibold tracking-tight transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C5B89A]"
+          >
+            <span className="inline-block h-2 w-2 rounded-full bg-[#C5B89A] shadow-[0_0_12px_rgba(197,184,154,0.9)]" />
+            <span className="font-mono text-[11px] tracking-[0.14em] uppercase">
+              {profile.shortName}
+            </span>
+          </a>
+
+          {/* Десктопные пункты меню */}
+          <ul className="hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => {
+              const isActive = currentNav.id === item.id;
+              const isHovered = hoveredId === item.id;
+              return (
+                <li key={item.id} className="relative">
+                  <a
+                    href={`#${item.target}`}
+                    onClick={(e) => handleNavClick(e, item.target)}
+                    onPointerEnter={() => setHoveredId(item.id)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`relative z-10 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-[0.13em] uppercase transition-colors duration-250 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C5B89A] ${
+                      isActive ? "font-semibold text-[#171717]" : "nav-link-idle"
+                    }`}
+                  >
+                    {isActive && (
+                      <span
+                        className="absolute inset-0 -z-10 rounded-full bg-[#F5F2EB] shadow-[0_2px_14px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.95)]"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {!isActive && isHovered && (
+                      <span
+                        className="absolute inset-0 -z-10 rounded-full bg-[#C5B89A]/25"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Индикатор секции / кнопка мобильного меню */}
+          <div className="flex items-center gap-2">
+            <span className="nav-counter hidden rounded-full border px-2.5 py-1 font-mono text-[10px] font-medium tracking-[0.18em] sm:inline-block">
+              [ {currentNav.index} / 06 ]
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-glass-menu"
+              aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+              className="nav-mobile-btn inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[11px] font-medium tracking-[0.14em] uppercase transition-colors hover:border-[#C5B89A] lg:hidden"
+            >
+              <span>{mobileOpen ? "Закрыть" : "Меню"}</span>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#C5B89A]" />
+            </button>
+          </div>
+        </nav>
+      </header>
+    </>
   );
 }
