@@ -1,0 +1,42 @@
+{
+  "name": "aksenova-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Персональное цифровое портфолио — Аксёнова Татьяна Геннадьевна",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "build:pages": "STATIC_EXPORT=true NEXT_PUBLIC_BASE_PATH=/tg-aksenova NEXT_PUBLIC_SITE_URL=https://voodeex.github.io/tg-aksenova next build --webpack",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/manrope": "^5.2.5",
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "@react-three/postprocessing": "^3.0.4",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.28",
+    "motion": "^12.0.0",
+    "next": "^16.4.6",
+    "postprocessing": "^6.37.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.187.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^5.7.0"
+  }
+}
