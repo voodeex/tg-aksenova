@@ -78,6 +78,8 @@ export function AwardSculpture() {
 
     const t = state.clock.elapsedTime;
     if (sculptureRef.current) {
+      const targetScale = engine.portrait ? 0.68 : 1.0;
+      sculptureRef.current.scale.setScalar(damp(sculptureRef.current.scale.x, targetScale, 6, dt));
       sculptureRef.current.rotation.y = t * 0.32 + engine.pointer.x * 0.35;
       sculptureRef.current.rotation.x = damp(
         sculptureRef.current.rotation.x,
@@ -85,7 +87,7 @@ export function AwardSculpture() {
         4,
         dt,
       );
-      sculptureRef.current.position.y = Math.sin(t * 0.8) * 0.08;
+      sculptureRef.current.position.y = (engine.portrait ? 0.45 : 0) + Math.sin(t * 0.8) * 0.08;
     }
 
     if (ring1Ref.current) {

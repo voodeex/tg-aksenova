@@ -16,22 +16,23 @@ export function ContactSection() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative z-10 flex min-h-screen w-full flex-col justify-between px-5 pt-28 pb-10 md:px-12 md:pt-36 md:pb-14"
+      className="relative z-10 flex min-h-[100svh] w-full flex-col justify-between px-4 pt-24 pb-8 sm:px-6 md:px-12 md:pt-36 md:pb-14"
     >
       <div className="mx-auto w-full max-w-[1440px]">
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--line)] pb-4 font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--fg-mute)]">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] pb-3.5 font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--fg-mute)] sm:mb-10 sm:text-[11px] sm:tracking-[0.22em]">
           <span>[ 06 / 06 ] · CONTACT &amp; DIALOGUE</span>
           <span>МОСКВА · ФИНУНИВЕРСИТЕТ</span>
         </div>
 
-        <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
-          {/* Левая колонка — монументальный финальный заголовок */}
+        <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-12 lg:gap-12">
+          {/* Левая колонка — монументальный финальный заголовок + мобильное окно для 3D-гало */}
           <div className="lg:col-span-6">
             <SplitReveal
               as="h2"
               lines={["БУДУЩЕЕ", "НАЧИНАЕТСЯ", "С ДИАЛОГА."]}
-              className="text-halo font-sans text-[clamp(2.4rem,5.8vw,5.4rem)] leading-[0.94] font-semibold tracking-[-0.038em] uppercase text-[var(--fg)]"
+              className="text-halo font-sans text-[clamp(2.05rem,8vw,5.4rem)] leading-[0.95] font-semibold tracking-[-0.038em] uppercase text-[var(--fg)]"
             />
+            <div aria-hidden="true" className="h-[135px] w-full lg:hidden" />
           </div>
 
           {/* Правая колонка — крупная жидкостеклянная контактная панель */}

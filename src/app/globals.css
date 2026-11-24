@@ -236,6 +236,28 @@ html[data-scene="dark"] .nav-drawer-link:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* Прозрачность кликов сквозь пустые зоны секций к 3D-сцене и возврат кликабельности карточкам/кнопкам */
+main a,
+main button,
+main summary,
+main details,
+main [role="tablist"],
+main [role="listbox"],
+main [role="toolbar"],
+.liquid-glass-surface,
+.liquid-glass-pill {
+  pointer-events: auto;
+}
+
+/* Скрытие полосы прокрутки у горизонтальных мобильных каруселей фильтров и тем */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

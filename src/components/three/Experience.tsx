@@ -53,13 +53,22 @@ function SceneRig() {
       const topic = topics.find((t) => t.id === focusedId);
       if (topic) {
         const [px, py, pz] = topic.position;
-        // Мягкий кинематографичный фокус на выбранной сфере без обрезки созвездия
-        tx = px * 0.25 + (engine.portrait ? 0 : 0.25);
-        ty = py * 0.22;
-        tz = WORLD.universeZ + (engine.portrait ? 16.5 : 11.8) + pz * 0.35;
-        lx = -1.6 + px * 0.32 + (engine.portrait ? 1.6 : 1.75);
-        ly = -0.25 + py * 0.26;
-        lz = WORLD.universeZ + pz * 0.35;
+        if (engine.portrait) {
+          // На iPhone удерживаем всё созвездие целиком в витринном окне с мягким сдвигом акцента
+          tx = px * 0.12;
+          ty = py * 0.12;
+          tz = WORLD.universeZ + 15.0;
+          lx = px * 0.14;
+          ly = -0.12 + py * 0.12;
+          lz = WORLD.universeZ;
+        } else {
+          tx = px * 0.25 + 0.25;
+          ty = py * 0.22;
+          tz = WORLD.universeZ + 11.8 + pz * 0.35;
+          lx = -1.6 + px * 0.32 + 1.75;
+          ly = -0.25 + py * 0.26;
+          lz = WORLD.universeZ + pz * 0.35;
+        }
       }
     }
 
@@ -164,12 +173,13 @@ export function Experience() {
 
   return (
     <div
-      className="fixed inset-0 z-0 overflow-hidden"
+      className="fixed top-0 right-0 left-0 z-0 h-[100lvh] w-full overflow-hidden"
       aria-hidden="true"
     >
       <Canvas
         frameloop={tabHidden ? "never" : "always"}
         dpr={dpr}
+        style={{ touchAction: "pan-y" }}
         camera={{ position: [0, 0, 8], fov: WORLD.fov, near: 0.1, far: 70 }}
         gl={{
           antialias: quality !== "low",

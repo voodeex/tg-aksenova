@@ -231,6 +231,8 @@ export function Sculpture({ quality }: Props) {
     rotY: 0,
     dragX: 0,
     dragY: 0,
+    lastX: 0,
+    lastY: 0,
     dragging: false,
   });
 
@@ -406,14 +408,23 @@ export function Sculpture({ quality }: Props) {
       onPointerDown={(e) => {
         e.stopPropagation();
         smoothState.current.dragging = true;
+        smoothState.current.lastX = e.clientX;
+        smoothState.current.lastY = e.clientY;
       }}
       onPointerUp={() => {
         smoothState.current.dragging = false;
       }}
+      onPointerCancel={() => {
+        smoothState.current.dragging = false;
+      }}
       onPointerMove={(e) => {
         if (!smoothState.current.dragging) return;
-        smoothState.current.dragX = clamp(smoothState.current.dragX + e.movementX * 0.005, -0.9, 0.9);
-        smoothState.current.dragY = clamp(smoothState.current.dragY + e.movementY * 0.005, -0.6, 0.6);
+        const dx = e.clientX - smoothState.current.lastX;
+        const dy = e.clientY - smoothState.current.lastY;
+        smoothState.current.lastX = e.clientX;
+        smoothState.current.lastY = e.clientY;
+        smoothState.current.dragX = clamp(smoothState.current.dragX + dx * 0.006, -1.1, 1.1);
+        smoothState.current.dragY = clamp(smoothState.current.dragY + dy * 0.005, -0.65, 0.65);
       }}
     >
       {/* Внутреннее матово-стеклянное ядро */}

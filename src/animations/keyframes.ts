@@ -90,7 +90,7 @@ export const BASE_STATE: SceneState = {
   dust: 0.55,
 };
 
-/** Режиссура камеры и сцены. portrait — мобильная/вертикальная композиция. */
+/** Режиссура камеры и сцены. portrait — выверенная по проекции композиция для iPhone. */
 export function buildKeyframes(portrait: boolean): Keyframe[] {
   const P = portrait;
   return [
@@ -99,20 +99,21 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       at: 0,
       s: {
         ...BASE_STATE,
-        cam: [0, 0, P ? 13.8 : 8.6],
-        sPos: P ? [0.95, 1.95, -3.0] : [0.55, 0.55, -0.8],
-        sScale: P ? 0.46 : 0.82,
+        cam: [0, 0, P ? 12.2 : 8.6],
+        // На iPhone скульптура парит ровно в выделенном верхнем окне (над заголовком, не задевая буквы)
+        sPos: P ? [0.05, 1.88, -0.5] : [0.55, 0.55, -0.8],
+        sScale: P ? 0.54 : 0.82,
       },
     },
     {
       id: "home",
       at: 1,
       s: {
-        cam: [0.15, 0.1, P ? 11.2 : 5.4],
+        cam: [0.15, 0.1, P ? 10.5 : 5.4],
         look: [0, 0, -2],
-        spread: 0.9,
-        sPos: P ? [0.65, 1.5, -3.0] : [0.4, 0.2, -1.0],
-        sScale: P ? 0.44 : 0.78,
+        spread: P ? 0.55 : 0.9,
+        sPos: P ? [0.05, 1.55, -1.2] : [0.4, 0.2, -1.0],
+        sScale: P ? 0.48 : 0.78,
         sTilt: 0.65,
         glow: 1.25,
       },
@@ -122,32 +123,45 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       at: 0,
       vh: -0.15,
       s: {
-        cam: [-0.8, 0.25, P ? 12.5 : 8.4],
-        look: [0.2, 0, -2.2],
-        spread: 0.28,
+        cam: [P ? 0 : -0.8, 0.25, P ? 13.0 : 8.4],
+        look: [P ? 0 : 0.2, 0, -2.2],
+        spread: 0.25,
         wave: 1,
         sTilt: 0,
-        sPos: P ? [0, 1.8, -3.5] : [0.35, 0.3, -3.0],
-        sScale: P ? 0.48 : 0.68,
+        sPos: P ? [0, 2.1, -3.8] : [0.35, 0.3, -3.0],
+        sScale: P ? 0.38 : 0.68,
         glow: 0.8,
       },
     },
     {
       id: "about",
       at: 1,
-      s: { cam: [0.7, -0.1, P ? 12 : 7.8], look: [-0.2, 0, -2.5], sScale: P ? 0.35 : 0.55, spread: 0.08 },
+      s: {
+        cam: [P ? 0.2 : 0.7, -0.1, P ? 12.5 : 7.8],
+        look: [P ? 0 : -0.2, 0, -2.5],
+        sScale: P ? 0.32 : 0.55,
+        spread: 0.08,
+      },
     },
     {
       id: "education",
       at: 0,
-      s: { cam: [0, 0.15, -6], look: [0, -0.1, S1], bg: COLORS.gallery, fog: [8, 30], spread: 0, sScale: 0, dust: 0.42 },
+      s: {
+        cam: [0, 0.15, P ? -8 : -6],
+        look: [0, -0.1, S1],
+        bg: COLORS.gallery,
+        fog: [8, 30],
+        spread: 0,
+        sScale: 0,
+        dust: 0.42,
+      },
     },
-    { id: "education", at: 0.28, s: { cam: [0, 0, S1 + F], look: [0, -0.1, S1] } },
-    { id: "education", at: 0.44, s: { cam: [0, 0, S1 + F - 0.2], look: [0, -0.1, S1] } },
-    { id: "education", at: 0.56, s: { cam: [0.25, 0.1, S1 - 3.5], look: [0, -0.1, S2] } },
-    { id: "education", at: 0.74, s: { cam: [0, 0, S2 + F], look: [0, -0.1, S2] } },
-    { id: "education", at: 0.9, s: { cam: [0, 0, S2 + F - 0.2], look: [0, -0.1, S2] } },
-    { id: "education", at: 1, s: { cam: [0.3, 0.25, S2 - 2.5], look: [0, -0.2, S2 - 14], bg: COLORS.timeline } },
+    { id: "education", at: 0.28, s: { cam: [0, 0, S1 + (P ? F + 2.2 : F)], look: [0, -0.1, S1] } },
+    { id: "education", at: 0.44, s: { cam: [0, 0, S1 + (P ? F + 2.0 : F - 0.2)], look: [0, -0.1, S1] } },
+    { id: "education", at: 0.56, s: { cam: [0.2, 0.1, S1 - 3.5], look: [0, -0.1, S2] } },
+    { id: "education", at: 0.74, s: { cam: [0, 0, S2 + (P ? F + 2.2 : F)], look: [0, -0.1, S2] } },
+    { id: "education", at: 0.9, s: { cam: [0, 0, S2 + (P ? F + 2.0 : F - 0.2)], look: [0, -0.1, S2] } },
+    { id: "education", at: 1, s: { cam: [0.25, 0.25, S2 - 2.5], look: [0, -0.2, S2 - 14], bg: COLORS.timeline } },
     {
       id: "development",
       at: 0,
@@ -159,19 +173,38 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
     {
       id: "expertise",
       at: 0,
-      vh: -0.2,
-      s: { cam: [0, 0.25, U + (P ? 22 : 14.5)], look: [0, -0.1, U], bg: COLORS.universe, fog: [10, 46], dust: 0.8 },
+      vh: -0.22,
+      s: {
+        cam: [0, 0, U + (P ? 15.6 : 14.5)],
+        look: [0, -0.12, U],
+        bg: COLORS.universe,
+        fog: [10, 46],
+        dust: 0.8,
+      },
     },
-    { id: "expertise", at: 0.15, s: { cam: [0, 0.1, U + (P ? 20 : 13.8)], look: [P ? 0 : 0.35, P ? -0.8 : -0.15, U] } },
-    { id: "expertise", at: 1, s: { cam: [0.45, -0.1, U + (P ? 19.5 : 13.4)], look: [P ? 0 : 0.25, P ? -0.8 : -0.15, U] } },
+    {
+      id: "expertise",
+      at: 0.12,
+      s: {
+        cam: [0, 0, U + (P ? 15.2 : 13.8)],
+        look: [P ? 0 : 0.35, -0.12, U],
+      },
+    },
+    {
+      id: "expertise",
+      at: 1,
+      s: {
+        cam: [P ? 0 : 0.45, P ? 0 : -0.1, U + (P ? 15.0 : 13.4)],
+        look: [P ? 0 : 0.25, -0.12, U],
+      },
+    },
     {
       id: "awards",
       at: 0,
-      vh: -0.35,
-      // Ставим золотой 3D-трофей свободно по центру-слева рядом с карточкой, чтобы он не прятался за текстом
+      vh: -0.3,
       s: {
-        cam: [0, 0.25, A + (P ? 11 : 8.6)],
-        look: [P ? 0 : 1.05, P ? -0.45 : 0.1, A],
+        cam: [0, P ? 0.15 : 0.25, A + (P ? 10.6 : 8.6)],
+        look: [P ? 0 : 1.05, P ? -0.22 : 0.1, A],
         bg: COLORS.night,
         fog: [6, 32],
         sScale: 0,
@@ -182,7 +215,10 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
     {
       id: "awards",
       at: 1,
-      s: { cam: [-0.65, 0.45, A + (P ? 10.5 : 7.8)], look: [P ? 0 : 0.9, P ? -0.35 : 0.18, A] },
+      s: {
+        cam: [P ? 0.25 : -0.65, P ? 0.25 : 0.45, A + (P ? 10.2 : 7.8)],
+        look: [P ? 0 : 0.9, P ? -0.18 : 0.18, A],
+      },
     },
     {
       id: "degree",
@@ -190,7 +226,7 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       s: {
         cam: [0, 0.2, A - 6],
         look: [0, 0, A - 22],
-        sPos: [P ? 0 : 0.8, 0.15, C - 1.8],
+        sPos: [P ? 0 : 0.8, P ? 1.15 : 0.15, C - 1.8],
         sScale: 0,
         halo: 0,
         wave: 0,
@@ -205,13 +241,13 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       at: 0,
       vh: -0.25,
       s: {
-        cam: [0, 0.1, C + (P ? 13 : 10.8)],
+        cam: [0, 0.1, C + (P ? 12.2 : 10.8)],
         look: [0, 0, C],
         bg: COLORS.pearlLight,
         env: 1,
         fog: [10, 42],
-        sPos: [P ? 0.25 : 0.95, P ? 1.8 : 0.15, C - 1.8],
-        sScale: P ? 0.52 : 0.78,
+        sPos: [P ? 0 : 0.95, P ? 1.25 : 0.15, C - 1.8],
+        sScale: P ? 0.48 : 0.78,
         halo: 1,
         glow: 0.85,
       },
@@ -220,10 +256,10 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       id: "contact",
       at: 0.08,
       s: {
-        cam: [0, 0, C + (P ? 12.2 : 8.6)],
-        look: [0, P ? -0.75 : 0.05, C],
-        sPos: [P ? 0.25 : 0.95, P ? 1.8 : 0.15, C - 1.8],
-        sScale: P ? 0.52 : 0.78,
+        cam: [0, 0, C + (P ? 11.6 : 8.6)],
+        look: [0, P ? -0.15 : 0.05, C],
+        sPos: [P ? 0 : 0.95, P ? 1.25 : 0.15, C - 1.8],
+        sScale: P ? 0.48 : 0.78,
         halo: 1,
         glow: 0.75,
       },
@@ -232,10 +268,10 @@ export function buildKeyframes(portrait: boolean): Keyframe[] {
       id: "contact",
       at: 1,
       s: {
-        cam: [0.15, 0.1, C + (P ? 11.8 : 8.2)],
-        look: [0, P ? -0.7 : 0.08, C],
-        sPos: [P ? 0.25 : 0.95, P ? 1.8 : 0.15, C - 1.8],
-        sScale: P ? 0.52 : 0.78,
+        cam: [0.12, 0.08, C + (P ? 11.4 : 8.2)],
+        look: [0, P ? -0.12 : 0.08, C],
+        sPos: [P ? 0 : 0.95, P ? 1.25 : 0.15, C - 1.8],
+        sScale: P ? 0.48 : 0.78,
       },
     },
   ];

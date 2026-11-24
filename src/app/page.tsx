@@ -22,7 +22,7 @@ export default function HomePage() {
       <GlassNav />
       <CanvasStage />
 
-      <main id="main-content" className="relative z-10">
+      <main id="main-content" className="pointer-events-none relative z-10">
         <HeroSection />
         <AboutSection />
         <EducationSection />

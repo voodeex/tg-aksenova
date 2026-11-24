@@ -62,7 +62,18 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.add(onTicker);
     gsap.ticker.lagSmoothing(0);
 
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
     const onResize = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // На iPhone (iOS Safari) скрытие/показ адресной строки меняет только innerHeight на ~70–110px.
+      // Игнорируем такие микро-ресайзы на тач-устройствах, чтобы камера и скролл не дёргались.
+      if (touch && Math.abs(w - lastWidth) < 2 && Math.abs(h - lastHeight) < 160) {
+        return;
+      }
+      lastWidth = w;
+      lastHeight = h;
       measure();
       ScrollTrigger.refresh();
     };

@@ -49,25 +49,27 @@ export function AwardsSection() {
     <section
       id="awards"
       aria-labelledby="awards-heading"
-      className="relative z-10 flex min-h-[125vh] w-full items-center px-5 py-28 md:px-12 md:py-36"
+      className="relative z-10 flex min-h-screen w-full items-center px-4 py-20 sm:px-6 md:px-12 md:py-36 lg:min-h-[125vh]"
     >
       <div className="mx-auto w-full max-w-[1440px]">
-        <div className="mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--line)] pb-4 font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--fg-mute)]">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] pb-3.5 font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--fg-mute)] sm:mb-12 sm:text-[11px] sm:tracking-[0.22em]">
           <span>[ 05 / 06 ] · RECOGNITION &amp; AWARDS</span>
           <span>ФИНАНСОВЫЙ УНИВЕРСИТЕТ</span>
         </div>
 
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
-          {/* Левая колонка — заголовок и пространство для 3D-трофея */}
+        <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-12">
+          {/* Левая колонка — заголовок и витринное окно для золотого 3D-трофея на мобильных */}
           <div className="lg:col-span-6">
             <SplitReveal
               as="h2"
               lines={["ПРИЗНАНИЕ", "И ДОСТИЖЕНИЯ"]}
-              className="font-sans text-[clamp(2.2rem,5.2vw,4.8rem)] leading-[0.95] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
+              className="text-halo font-sans text-[clamp(1.95rem,6.8vw,4.8rem)] leading-[0.95] font-semibold tracking-[-0.035em] uppercase text-[var(--fg)]"
             />
-            <p className="mt-4 whitespace-nowrap font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-[#E2CDA0] sm:text-xs sm:tracking-[0.22em]">
+            <p className="mt-3 whitespace-nowrap font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-[#E2CDA0] sm:mt-4 sm:text-xs sm:tracking-[0.22em]">
               [ ОФИЦИАЛЬНАЯ БЛАГОДАРНОСТЬ · {award.year} ]
             </p>
+            {/* Открытое окно для 3D-трофея на iPhone, чтобы скульптура была видна целиком над карточкой */}
+            <div aria-hidden="true" className="h-[190px] w-full sm:h-[220px] lg:hidden" />
           </div>
 
           {/* Правая колонка — карточка награды со световым лучом */}

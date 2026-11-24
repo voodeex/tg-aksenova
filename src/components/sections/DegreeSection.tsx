@@ -72,7 +72,7 @@ export function DegreeSection() {
       id="degree"
       ref={sectionRef}
       aria-label="Учёная степень: Кандидат педагогических наук"
-      className="relative z-10 flex min-h-[110vh] w-full items-center justify-center px-5 py-28 md:px-12"
+      className="relative z-10 flex min-h-[70svh] w-full items-center justify-center px-4 py-20 sm:px-6 md:px-12 lg:min-h-[110vh] lg:py-28"
     >
       <div className="mx-auto w-full max-w-[1440px] text-center">
         <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--line)] px-4 py-1.5 font-mono text-[11px] font-medium tracking-[0.2em] uppercase text-[var(--fg-mute)] sm:tracking-[0.26em]">
